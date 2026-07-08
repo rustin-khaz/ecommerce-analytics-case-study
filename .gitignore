@@ -1,0 +1,23 @@
+# Data (raw dataset not committed — run ingestion/download_data.py to fetch it)
+data/*.csv
+data/*.parquet
+*.duckdb
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# dbt
+warehouse/target/
+warehouse/dbt_packages/
+warehouse/logs/
+warehouse/.user.yml
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
