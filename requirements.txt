@@ -1,0 +1,13 @@
+kagglehub
+duckdb>=1.5,<2
+dbt-duckdb>=1.10,<2
+pytest>=8,<9
+pandas
+matplotlib
+seaborn
+jupyter
+nbformat
+nbclient
+statsmodels
+scipy
+plotly
