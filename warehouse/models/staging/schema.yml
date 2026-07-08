@@ -1,0 +1,47 @@
+version: 2
+
+models:
+  - name: stg_orders
+    columns:
+      - name: order_id
+        data_tests: [unique, not_null]
+      - name: order_status
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['approved', 'canceled', 'created', 'delivered', 'invoiced', 'processing', 'shipped', 'unavailable']
+
+  - name: stg_customers
+    columns:
+      - name: customer_id
+        data_tests: [unique, not_null]
+
+  - name: stg_order_items
+    columns:
+      - name: order_id
+        data_tests: [not_null]
+
+  - name: stg_order_payments
+    columns:
+      - name: order_id
+        data_tests: [not_null]
+
+  - name: stg_order_reviews
+    columns:
+      - name: review_id
+        data_tests: [unique, not_null]
+
+  - name: stg_products
+    columns:
+      - name: product_id
+        data_tests: [unique, not_null]
+
+  - name: stg_sellers
+    columns:
+      - name: seller_id
+        data_tests: [unique, not_null]
+
+  - name: stg_product_category_translation
+    columns:
+      - name: product_category_name
+        data_tests: [unique, not_null]

@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: kpi_monthly_gmv
+    columns:
+      - name: order_month
+        data_tests: [unique, not_null]
+
+  - name: kpi_repeat_purchase_rate
+    columns:
+      - name: total_customers
+        data_tests: [not_null]
+
+  - name: kpi_cohort_retention
+    columns:
+      - name: cohort_month
+        data_tests: [not_null]
+      - name: retention_rate
+        data_tests: [not_null]
+
+  - name: kpi_order_funnel
+    columns:
+      - name: stage
+        data_tests: [unique, not_null]
+
+  - name: kpi_review_by_category
+    columns:
+      - name: product_category_name_english
+        data_tests: [unique, not_null]
+
+  - name: kpi_review_by_delivery_speed
+    columns:
+      - name: is_late_delivery
+        data_tests: [unique, not_null]
