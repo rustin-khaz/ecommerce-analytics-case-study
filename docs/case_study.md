@@ -1,5 +1,7 @@
 # E-Commerce Analytics Case Study
 
+**[Live dashboard](https://rustin-khaz.github.io/ecommerce-analytics-case-study/dashboard/)**
+
 ## Business question
 
 Where does this business's revenue concentrate, and what drives customer
