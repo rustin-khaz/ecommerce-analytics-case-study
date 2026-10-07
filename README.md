@@ -1,24 +1,25 @@
 # E-Commerce Analytics Case Study
 
-An end-to-end analytics case study on the [Olist Brazilian E-Commerce dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce):
-ingestion, warehouse modeling, business KPIs, causal/experiment analysis,
-a Tableau Public dashboard, and a written case study.
+I wanted a project that looked like an actual analytics job instead of a single notebook, so I took the [Olist Brazilian e-commerce dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) (about 99,000 orders from 2016 to 2018) and built the whole thing: a DuckDB warehouse modeled with dbt, KPI views in SQL, a couple of stats notebooks, and a dashboard in Tableau Public.
 
-- **[Tableau Public dashboard](https://public.tableau.com/app/profile/rustin.khazravi/viz/OlistE-CommerceAnalytics_17914070197460/OlistE-CommerceRevenueDeliveryandSatisfaction)**: late-delivery map by state, monthly GMV, review score by delivery time, top categories
-- **[Case study write-up](docs/case_study.md)**
+- [Tableau Public dashboard](https://public.tableau.com/app/profile/rustin.khazravi/viz/OlistE-CommerceAnalytics_17914070197460/OlistE-CommerceRevenueDeliveryandSatisfaction)
+- [Full write-up](docs/case_study.md)
 
 [![Tableau dashboard preview](docs/img/dashboard.png)](https://public.tableau.com/app/profile/rustin.khazravi/viz/OlistE-CommerceAnalytics_17914070197460/OlistE-CommerceRevenueDeliveryandSatisfaction)
 
-## Key findings
+## What I found
 
-- **Late deliveries cost 1.7 stars.** Late orders average 2.57 stars against 4.22 for on-time ones, and controlling for order size, freight and state barely narrows the gap.
-- **Almost nobody comes back.** 3.1% of 96,096 customers ordered twice, so the first order decides the relationship.
-- **Revenue is concentrated.** São Paulo brings in R$5.07M of R$13.2M total GMV, close to three times Rio de Janeiro.
-- **Orders get lost in fulfillment, not checkout.** 99.8% of orders get approved and 97.0% get delivered.
+Late deliveries line up with the worst reviews more than anything else I looked at. A late order averages 2.57 stars and an on-time one averages 4.30. I expected that gap to shrink once I controlled for order size, freight cost and state, and it barely moved.
 
-The [write-up](docs/case_study.md) covers the method, the quasi-experiment's limits and the recommendations.
+Repeat customers basically don't exist here. Only 3.1% of the 96,096 customers ever placed a second order, so for most people the first order is the whole relationship.
 
-## Architecture
+Revenue is lopsided. São Paulo accounts for R$5.07M of the R$13.2M total, almost three times Rio de Janeiro.
+
+Checkout isn't where orders get lost. 99.8% of orders get approved and 97.0% end up delivered, so whatever drop-off there is happens in fulfillment.
+
+The [write-up](docs/case_study.md) goes through the method, what the quasi-experiment can and can't tell you, and what I'd recommend.
+
+## How it fits together
 
 ```
 Kaggle CSVs → Python ingestion script → DuckDB (raw schema)
@@ -37,36 +38,36 @@ Kaggle CSVs → Python ingestion script → DuckDB (raw schema)
    retention, funnel)
 ```
 
-## Repo Structure
+## Repo layout
 
 ```
-/ingestion      Kaggle download script + DuckDB raw loader (data itself is gitignored)
-/warehouse      dbt project (staging + marts + KPI views)
-/notebooks      EDA, quasi-experiment, synthetic RCT
-/tableau        Order-level CSV export that feeds the Tableau Public dashboard
-/docs           case study write-up
+/ingestion      downloads the Kaggle data and loads it into DuckDB (the data itself is gitignored)
+/warehouse      dbt project: staging, marts and KPI views
+/notebooks      EDA, the quasi-experiment, and a simulated A/B test
+/tableau        exports the order-level CSV the Tableau dashboard is built on
+/docs           the write-up
 ```
 
-## Setup
+## Running it yourself
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
-# Download the dataset and load it into the DuckDB warehouse
+# pull the dataset and load it into DuckDB
 python3 ingestion/download_data.py
 python3 ingestion/load_raw.py
 
-# Build the dbt staging/mart/KPI layers
+# build and test the dbt models
 dbt run --project-dir warehouse --profiles-dir warehouse
 dbt test --project-dir warehouse --profiles-dir warehouse
 
-# Export the order-level CSV the Tableau dashboard is built on
+# write the CSV that feeds the Tableau dashboard
 python3 tableau/export_orders.py
 
-# Run the notebooks (EDA, quasi-experiment, synthetic RCT)
+# open the notebooks
 jupyter notebook notebooks/
 ```
 
-Run `pytest` to check the ingestion test suite (dataset download, raw loader).
+`pytest` runs the tests for the download and load steps. The dbt project has 44 data tests of its own (uniqueness, not-null, relationships and so on), which `dbt test` covers.
