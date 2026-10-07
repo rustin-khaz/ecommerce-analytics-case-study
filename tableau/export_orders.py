@@ -21,10 +21,10 @@ def main():
     out = ROOT / "tableau" / "orders.csv"
     con.execute(f"""
         copy (
-          select o.customer_unique_id as customer_id, o.order_status,
+          select dense_rank() over (order by o.customer_unique_id) as customer_id, o.order_status,
                  o.order_purchase_at::date as purchase_date, 'Brazil' as country, s.name as state,
                  coalesce(replace(p.product_category_name_english, '_', ' '), 'unknown') as category,
-                 o.item_count, o.item_revenue, o.freight_total, o.review_score,
+                 o.item_revenue, o.review_score,
                  least(o.delivery_days, 40) as delivery_days_capped,
                  o.is_late_delivery::int as is_late,
                  (c.lifetime_order_count > 1)::int as is_repeat_customer

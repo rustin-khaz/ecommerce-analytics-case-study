@@ -5,6 +5,7 @@ ingestion, warehouse modeling, business KPIs, causal/experiment analysis,
 a live dashboard, and a written case study.
 
 - **[Live dashboard](https://rustin-khaz.github.io/ecommerce-analytics-case-study/dashboard/)**
+- **[Tableau Public dashboard](https://public.tableau.com/app/profile/rustin.khazravi/viz/OlistE-CommerceAnalytics_17914070197460/OlistE-CommerceRevenueDeliveryandSatisfaction)**: late-delivery map by state, monthly GMV, review score by delivery time, top categories
 - **[Case study write-up](docs/case_study.md)**
 
 [![Dashboard preview](docs/img/dashboard.png)](https://rustin-khaz.github.io/ecommerce-analytics-case-study/dashboard/)
@@ -44,7 +45,7 @@ Kaggle CSVs → Python ingestion script → DuckDB (raw schema)
 /warehouse      dbt project (staging + marts + KPI views)
 /notebooks      EDA, quasi-experiment, synthetic RCT
 /dashboard      Plotly dashboard build script + generated HTML (live via GitHub Pages)
-/tableau        Order-level CSV export for the Tableau Public dashboard
+/tableau        Order-level CSV export that feeds the Tableau Public dashboard
 /docs           case study write-up
 ```
 
