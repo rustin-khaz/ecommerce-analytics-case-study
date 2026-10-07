@@ -2,13 +2,12 @@
 
 An end-to-end analytics case study on the [Olist Brazilian E-Commerce dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce):
 ingestion, warehouse modeling, business KPIs, causal/experiment analysis,
-a live dashboard, and a written case study.
+a Tableau Public dashboard, and a written case study.
 
-- **[Live dashboard](https://rustin-khaz.github.io/ecommerce-analytics-case-study/dashboard/)**
 - **[Tableau Public dashboard](https://public.tableau.com/app/profile/rustin.khazravi/viz/OlistE-CommerceAnalytics_17914070197460/OlistE-CommerceRevenueDeliveryandSatisfaction)**: late-delivery map by state, monthly GMV, review score by delivery time, top categories
 - **[Case study write-up](docs/case_study.md)**
 
-[![Dashboard preview](docs/img/dashboard.png)](https://rustin-khaz.github.io/ecommerce-analytics-case-study/dashboard/)
+[![Tableau dashboard preview](docs/img/dashboard.png)](https://public.tableau.com/app/profile/rustin.khazravi/viz/OlistE-CommerceAnalytics_17914070197460/OlistE-CommerceRevenueDeliveryandSatisfaction)
 
 ## Key findings
 
@@ -32,9 +31,9 @@ Kaggle CSVs → Python ingestion script → DuckDB (raw schema)
                 fct_order_items, fct_payments, fct_reviews
                                             │
         ┌───────────────┬──────────────────┴───────────────┐
-   SQL KPI views    Python EDA/stats notebooks         Plotly dashboard
-  (GMV, AOV, repeat   (EDA, quasi-experiment,          (published via
-   rate, cohort         synthetic RCT module)          GitHub Pages)
+   SQL KPI views    Python EDA/stats notebooks       Tableau Public dashboard
+  (GMV, AOV, repeat   (EDA, quasi-experiment,        (order-level CSV
+   rate, cohort         synthetic RCT module)        export → Tableau)
    retention, funnel)
 ```
 
@@ -44,7 +43,6 @@ Kaggle CSVs → Python ingestion script → DuckDB (raw schema)
 /ingestion      Kaggle download script + DuckDB raw loader (data itself is gitignored)
 /warehouse      dbt project (staging + marts + KPI views)
 /notebooks      EDA, quasi-experiment, synthetic RCT
-/dashboard      Plotly dashboard build script + generated HTML (live via GitHub Pages)
 /tableau        Order-level CSV export that feeds the Tableau Public dashboard
 /docs           case study write-up
 ```
@@ -64,8 +62,8 @@ python3 ingestion/load_raw.py
 dbt run --project-dir warehouse --profiles-dir warehouse
 dbt test --project-dir warehouse --profiles-dir warehouse
 
-# Rebuild the dashboard from the current warehouse
-python3 dashboard/build_dashboard.py
+# Export the order-level CSV the Tableau dashboard is built on
+python3 tableau/export_orders.py
 
 # Run the notebooks (EDA, quasi-experiment, synthetic RCT)
 jupyter notebook notebooks/

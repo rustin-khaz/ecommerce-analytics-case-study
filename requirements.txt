@@ -10,4 +10,3 @@ nbformat
 nbclient
 statsmodels
 scipy
-plotly

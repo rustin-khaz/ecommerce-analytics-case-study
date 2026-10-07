@@ -1,6 +1,6 @@
 # E-Commerce Analytics Case Study
 
-**[Live dashboard](https://rustin-khaz.github.io/ecommerce-analytics-case-study/dashboard/)**
+**[Tableau Public dashboard](https://public.tableau.com/app/profile/rustin.khazravi/viz/OlistE-CommerceAnalytics_17914070197460/OlistE-CommerceRevenueDeliveryandSatisfaction)**
 
 ## Business question
 
