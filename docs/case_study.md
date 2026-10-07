@@ -43,7 +43,7 @@ second chance to change their mind.
 approved and 97.0% get delivered. Payment and approval aren't where orders
 get lost. What drop-off exists happens later, in fulfillment.
 
-**Late delivery predicts a 1.7-star review gap.** 7.7% of delivered orders
+**Late delivery predicts a 1.7-star review gap.** 8.1% of delivered orders
 arrive after the estimated delivery date. Those orders average a 2.57-star
 review. On-time orders average 4.22 stars. Controlling for order size,
 freight cost, and state barely narrows the gap: bigger or farther orders

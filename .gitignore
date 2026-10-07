@@ -1,6 +1,5 @@
-# Data (raw dataset not committed — run ingestion/download_data.py to fetch it)
-data/*.csv
-data/*.parquet
+# Data (raw dataset not committed; run ingestion/download_data.py to fetch it)
+data/
 *.duckdb
 
 # Python
