@@ -21,3 +21,7 @@ warehouse/.user.yml
 
 # OS
 .DS_Store
+
+# Tableau extract (regenerate with tableau/export_orders.py)
+tableau/orders.csv
+tableau/*.twb

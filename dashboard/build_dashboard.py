@@ -37,8 +37,10 @@ def build_funnel_chart(con):
     fig = go.Figure(go.Bar(
         x=funnel["order_count"], y=funnel["stage"], orientation="h",
         marker_color=ORDINAL_RAMP,
-        text=[f"{v:.1%}" for v in funnel["pct_of_placed"]], textposition="outside",
+        text=[f"{v:.1%}" for v in funnel["pct_of_placed"]], textposition="outside", cliponaxis=False,
     ))
+    fig.update_xaxes(range=[0, funnel["order_count"].max() * 1.15])
+    fig.update_yaxes(autorange="reversed")
     return chart_layout(fig, "Order funnel")
 
 

@@ -7,6 +7,17 @@ a live dashboard, and a written case study.
 - **[Live dashboard](https://rustin-khaz.github.io/ecommerce-analytics-case-study/dashboard/)**
 - **[Case study write-up](docs/case_study.md)**
 
+[![Dashboard preview](docs/img/dashboard.png)](https://rustin-khaz.github.io/ecommerce-analytics-case-study/dashboard/)
+
+## Key findings
+
+- **Late deliveries cost 1.7 stars.** Late orders average 2.57 stars against 4.22 for on-time ones, and controlling for order size, freight and state barely narrows the gap.
+- **Almost nobody comes back.** 3.1% of 96,096 customers ordered twice, so the first order decides the relationship.
+- **Revenue is concentrated.** São Paulo brings in R$5.07M of R$13.2M total GMV, close to three times Rio de Janeiro.
+- **Orders get lost in fulfillment, not checkout.** 99.8% of orders get approved and 97.0% get delivered.
+
+The [write-up](docs/case_study.md) covers the method, the quasi-experiment's limits and the recommendations.
+
 ## Architecture
 
 ```
@@ -33,6 +44,7 @@ Kaggle CSVs → Python ingestion script → DuckDB (raw schema)
 /warehouse      dbt project (staging + marts + KPI views)
 /notebooks      EDA, quasi-experiment, synthetic RCT
 /dashboard      Plotly dashboard build script + generated HTML (live via GitHub Pages)
+/tableau        Order-level CSV export for the Tableau Public dashboard
 /docs           case study write-up
 ```
 
